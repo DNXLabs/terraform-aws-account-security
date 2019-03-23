@@ -31,8 +31,10 @@ See:
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | account\_name | Account name (slug) | string | n/a | yes |
-| idp\_account\_id | Account ID of IDP account | string | n/a | yes |
+| idp\_account\_id | Account ID of IDP account | string | `""` | no |
+| idp\_trusts | List of role ARNs to trust as external IDPs | list | `<list>` | no |
 | org\_name | Name for this organization (slug) | string | n/a | yes |
+| role\_max\_session\_duration | Maximum CLI/API session duration | string | `"43200"` | no |
 
 ## Outputs
 
