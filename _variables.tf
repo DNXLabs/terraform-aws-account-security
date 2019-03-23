@@ -8,4 +8,5 @@ variable "org_name" {
 
 variable "idp_account_id" {
   description = "Account ID of IDP account"
+  default     = ""
 }

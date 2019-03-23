@@ -1,23 +1,31 @@
-resource "aws_iam_role" "read_only" {
-  name = "idp-read-only"
+data "aws_iam_policy_document" "assume_role_read_only" {
+  count = "${var.idp_account_id != "" ? 1 : 0}"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::${var.idp_account_id}:role/idp-read-only"
-      },
-      "Action": "sts:AssumeRole"
+  statement = {
+    principals = {
+      type = "AWS"
+
+      identifiers = [
+        "arn:aws:iam::${var.idp_account_id}:root",
+      ]
     }
-  ]
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+  }
 }
-EOF
+
+resource "aws_iam_role" "read_only" {
+  count = "${var.idp_account_id != "" ? 1 : 0}"
+
+  name               = "${var.org_name}-${var.account_name}-read-only"
+  assume_role_policy = "${data.aws_iam_policy_document.assume_role_read_only.json}"
 }
 
 resource "aws_iam_policy_attachment" "read_only" {
+  count = "${var.idp_account_id != "" ? 1 : 0}"
+
   name       = "idp-read-only-attachment"
   roles      = ["${aws_iam_role.read_only.name}"]
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"

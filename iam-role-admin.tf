@@ -1,23 +1,31 @@
-resource "aws_iam_role" "admin" {
-  name = "idp-admin"
+data "aws_iam_policy_document" "assume_role_admin" {
+  count = "${var.idp_account_id != "" ? 1 : 0}"
 
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::${var.idp_account_id}:role/idp-admin"
-      },
-      "Action": "sts:AssumeRole"
+  statement = {
+    principals = {
+      type = "AWS"
+
+      identifiers = [
+        "arn:aws:iam::${var.idp_account_id}:root",
+      ]
     }
-  ]
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+  }
 }
-EOF
+
+resource "aws_iam_role" "admin" {
+  count = "${var.idp_account_id != "" ? 1 : 0}"
+
+  name               = "${var.org_name}-${var.account_name}-admin"
+  assume_role_policy = "${data.aws_iam_policy_document.assume_role_admin.json}"
 }
 
 resource "aws_iam_role_policy" "admin" {
+  count = "${var.idp_account_id != "" ? 1 : 0}"
+
   name = "idp-admin-access"
   role = "${aws_iam_role.admin.id}"
 
