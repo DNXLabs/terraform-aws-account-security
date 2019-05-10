@@ -11,9 +11,15 @@ variable "idp_account_id" {
   default     = ""
 }
 
-variable "idp_trusts" {
+variable "idp_admin_trusts" {
   type        = "list"
   description = "List of role ARNs to trust as external IDPs"
+  default     = []
+}
+
+variable "idp_admin_trust_names" {
+  type        = "list"
+  description = "Names for external IDPs for roles (must match idp_trusts)"
   default     = []
 }
 

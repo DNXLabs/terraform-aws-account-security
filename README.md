@@ -10,16 +10,20 @@ It creates 2 roles:
 
 ```hcl
 module "my_account_roles" {
-  source         = "git::https://github.com/DNXLabs/terraform-aws-account-roles.git?ref=0.0.2"
-  org_name       = "my_organization"
-  account_name   = "my_account"
-  idp_account_id = "000000000000"
+  source                = "git::https://github.com/DNXLabs/terraform-aws-account-roles.git?ref=0.0.3"
+  org_name              = "my_organization"
+  account_name          = "my_account"
+  idp_account_id        = "000000000000"
+  idp_admin_trusts      = ["arn:aws:iam::REDACTED:root"] # optional
+  idp_admin_trust_names = ["dnx"]                        # optional
 }
 ```
 
 Deploy this module to every AWS account, except _IdP_ and _master_.
 
 You will need an AWS Organization created in the _master_ account and an IdP account with federated login.
+
+Use `idp_admin_trusts` and `idp_admin_trust_names` to allow access from external accounts. Enter a list of roles that will be able to assume to this account
 
 See:
 * Create an organization with [terraform-aws-organization](https://github.com/DNXLabs/terraform-aws-organization) 
