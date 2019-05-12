@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "assume_role_trust_admin" {
-  count = "${length(var.idp_admin_trusts)} "
+  count = "${length(var.idp_admin_trusts)}"
 
   statement = {
     principals = {
@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "assume_role_trust_admin" {
 }
 
 resource "aws_iam_role" "trust_admin" {
-  count = "${length(var.idp_admin_trusts)} "
+  count = "${length(var.idp_admin_trusts)}"
 
   name                 = "${var.idp_admin_trust_names[count.index]}-admin"
   assume_role_policy   = "${data.aws_iam_policy_document.assume_role_trust_admin.*.json[count.index]}"
@@ -25,7 +25,7 @@ resource "aws_iam_role" "trust_admin" {
 }
 
 resource "aws_iam_role_policy" "trust_admin" {
-  count = "${length(var.idp_admin_trusts)} "
+  count = "${length(var.idp_admin_trusts)}"
 
   name = "idp-trust-admin-access-${count.index}"
   role = "${aws_iam_role.trust_admin.*.id[count.index]}"
