@@ -27,3 +27,15 @@ variable "role_max_session_duration" {
   description = "Maximum CLI/API session duration"
   default     = "43200"
 }
+
+variable "ssm_account_ids" {
+  type        = "list"
+  description = "List of account IDs to save in SSM"
+  default     = []
+}
+
+variable "ssm_account_names" {
+  type        = "list"
+  description = "List of account names (slugs) to save in SSM, must match ssm_account_ids"
+  default     = []
+}
