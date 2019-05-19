@@ -43,6 +43,11 @@ resource "aws_iam_policy" "mgmt_ci_deploy" {
             "Effect": "Allow",
             "Action": "sts:AssumeRole",
             "Resource": "arn:aws:iam::*:role/ci-deploy"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ecr:*",
+            "Resource": "*"
         }
     ]
 }
