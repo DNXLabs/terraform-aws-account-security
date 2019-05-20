@@ -33,7 +33,7 @@ resource "aws_iam_user" "mgmt_ci_deploy" {
 
 resource "aws_iam_policy" "mgmt_ci_deploy" {
   count = "${var.iam_ci_mgmt ? 1 : 0}"
-  name  = "ci-deploy"
+  name  = "ci-deploy-mgmt"
 
   policy = <<EOF
 {
