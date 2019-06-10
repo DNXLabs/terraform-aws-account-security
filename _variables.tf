@@ -49,3 +49,9 @@ variable "iam_ci_mgmt_account_id" {
   description = "Account ID of MGMT account for use with IAM CI role. It creates IAM role to assume from MGMT account for CI deployments"
   default     = ""
 }
+
+variable "extra_roles" {
+  type        = "map"
+  default     = {}
+  description = "A map of <role_name> = <json policy> to create extra roles in this account"
+}
