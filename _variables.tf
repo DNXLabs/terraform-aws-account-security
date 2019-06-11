@@ -2,17 +2,8 @@ variable "account_name" {
   description = "Account name (slug)"
 }
 
-variable "account_email" {
-  description = "Account email for GuardDuty"
-}
-
 variable "org_name" {
   description = "Name for this organization (slug)"
-}
-
-variable "master_guardduty_id" {
-  default     = ""
-  description = "GuardDuty Detector ID for master account (optional, enables GuardDuty when set)"
 }
 
 variable "idp_account_id" {
