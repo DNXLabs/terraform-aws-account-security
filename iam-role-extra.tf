@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "assume_role_extra" {
       type = "AWS"
 
       identifiers = [
-        "arn:aws:iam::${var.idp_account_id}:role/${var.org_name}-${element(keys(var.extra_roles), count.index)}",
+        "arn:aws:iam::${var.idp_account_id}:root",
       ]
     }
 

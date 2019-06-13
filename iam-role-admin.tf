@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "assume_role_admin" {
       type = "AWS"
 
       identifiers = [
-        "arn:aws:iam::${var.idp_account_id}:role/${var.org_name}-admin",
+        "arn:aws:iam::${var.idp_account_id}:root",
       ]
     }
 
