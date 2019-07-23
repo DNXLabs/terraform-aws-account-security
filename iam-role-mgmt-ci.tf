@@ -42,7 +42,10 @@ resource "aws_iam_policy" "mgmt_ci_deploy" {
         {
             "Effect": "Allow",
             "Action": "sts:AssumeRole",
-            "Resource": "arn:aws:iam::*:role/ci-deploy"
+            "Resource": [
+              "arn:aws:iam::*:role/ci-deploy",
+              "arn:aws:iam::*:role/terraform-backend*"
+            ]
         },
         {
             "Effect": "Allow",
