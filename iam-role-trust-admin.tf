@@ -1,12 +1,13 @@
 data "aws_iam_policy_document" "assume_role_trust_admin" {
-  count = "${length(var.idp_admin_trusts)}"
+  count = "${length(var.idp_admin_trust_account_ids)}"
 
   statement = {
     principals = {
       type = "AWS"
 
       identifiers = [
-        "${var.idp_admin_trusts[count.index]}",
+        "arn:aws:iam::${var.idp_admin_trust_account_ids[count.index]}:role/client-${var.org_name}-admin",
+        "arn:aws:iam::${var.idp_admin_trust_account_ids[count.index]}:role/client-admin"
       ]
     }
 
@@ -17,7 +18,7 @@ data "aws_iam_policy_document" "assume_role_trust_admin" {
 }
 
 resource "aws_iam_role" "trust_admin" {
-  count = "${length(var.idp_admin_trusts)}"
+  count = "${length(var.idp_admin_trust_account_ids)}"
 
   name                 = "${var.idp_admin_trust_names[count.index]}-admin"
   assume_role_policy   = "${data.aws_iam_policy_document.assume_role_trust_admin.*.json[count.index]}"
@@ -25,7 +26,7 @@ resource "aws_iam_role" "trust_admin" {
 }
 
 resource "aws_iam_role_policy" "trust_admin" {
-  count = "${length(var.idp_admin_trusts)}"
+  count = "${length(var.idp_admin_trust_account_ids)}"
 
   name = "idp-trust-admin-access-${count.index}"
   role = "${aws_iam_role.trust_admin.*.id[count.index]}"
