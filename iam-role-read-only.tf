@@ -5,9 +5,18 @@ data "aws_iam_policy_document" "assume_role_read_only" {
     principals = {
       type = "AWS"
 
-      identifiers = [
-        "arn:aws:iam::${var.idp_account_id}:root",
-      ]
+      identifiers = ["${concat(
+        list(
+          "arn:aws:iam::${var.idp_account_id}:root",
+        ), 
+          formatlist(
+            "arn:aws:iam::%s:role/${var.org_name}-read-only", var.idp_admin_trust_account_ids
+          ),
+          formatlist(
+            "arn:aws:iam::%s:role/client-read-only", var.idp_admin_trust_account_ids
+          )
+        )
+      }"]
     }
 
     actions = [

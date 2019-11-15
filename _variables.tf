@@ -17,12 +17,6 @@ variable "idp_admin_trust_account_ids" {
   default     = []
 }
 
-variable "idp_admin_trust_names" {
-  type        = "list"
-  description = "Names for external IDPs for roles (must match idp_admin_trust_account_ids)"
-  default     = []
-}
-
 variable "role_max_session_duration" {
   description = "Maximum CLI/API session duration"
   default     = "43200"
