@@ -1,8 +1,8 @@
 data "aws_iam_policy_document" "assume_role_extra" {
   count = "${length(keys(var.extra_roles))}"
 
-  statement = {
-    principals = {
+  statement {
+    principals {
       type = "AWS"
 
       identifiers = [

@@ -35,7 +35,7 @@ resource "aws_iam_role_policy" "admin" {
   count = "${var.idp_account_id != "" ? 1 : 0}"
 
   name = "idp-admin-access"
-  role = "${aws_iam_role.admin.id}"
+  role = "${aws_iam_role.admin.*.id[0]}"
 
   policy = <<EOF
 {

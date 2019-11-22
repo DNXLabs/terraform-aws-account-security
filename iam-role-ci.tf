@@ -1,6 +1,6 @@
 data "aws_iam_policy_document" "assume_role_ci_deploy" {
-  statement = {
-    principals = {
+  statement {
+    principals {
       type = "AWS"
 
       identifiers = [
@@ -40,6 +40,6 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "ci_deploy" {
   count      = "${var.iam_ci_mgmt_account_id != "" ? 1 : 0}"
-  role       = "${aws_iam_role.ci_deploy.name}"
-  policy_arn = "${aws_iam_policy.ci_deploy.arn}"
+  role       = "${aws_iam_role.ci_deploy.*.name[0]}"
+  policy_arn = "${aws_iam_policy.ci_deploy.*.arn[0]}"
 }

@@ -35,6 +35,6 @@ resource "aws_iam_policy_attachment" "read_only" {
   count = "${var.idp_account_id != "" ? 1 : 0}"
 
   name       = "idp-read-only-attachment"
-  roles      = ["${aws_iam_role.read_only.name}"]
+  roles      = ["${aws_iam_role.read_only.*.name[0]}"]
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
