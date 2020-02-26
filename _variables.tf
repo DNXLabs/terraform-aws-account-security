@@ -12,7 +12,7 @@ variable "idp_account_id" {
 }
 
 variable "idp_admin_trust_account_ids" {
-  type        = "list"
+  type        = list(string)
   description = "List of account IDs to trust as external IDPs"
   default     = []
 }
@@ -23,13 +23,13 @@ variable "role_max_session_duration" {
 }
 
 variable "ssm_account_ids" {
-  type        = "list"
+  type        = list(string)
   description = "List of account IDs to save in SSM"
   default     = []
 }
 
 variable "ssm_account_names" {
-  type        = "list"
+  type        = list(string)
   description = "List of account names (slugs) to save in SSM, must match ssm_account_ids"
   default     = []
 }
@@ -45,7 +45,7 @@ variable "iam_ci_mgmt_account_id" {
 }
 
 variable "extra_roles" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "A map of <role_name> = <json policy> to create extra roles in this account"
 }
