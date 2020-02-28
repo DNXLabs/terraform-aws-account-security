@@ -1,4 +1,7 @@
-# terraform-aws-account-roles
+# terraform-aws-account-security
+
+[![Lint Status](https://github.com/DNXLabs/terraform-aws-account-security/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-account-security/actions)
+[![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-account-security)](https://github.com/DNXLabs/terraform-aws-account-security/blob/master/LICENSE)
 
 This terraform module creates IAM roles for federated users to assume from an IdP account.
 
