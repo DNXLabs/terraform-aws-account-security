@@ -1,7 +1,7 @@
 resource "aws_iam_role" "read_only" {
-  count = var.idp_account_id != "" ? 1 : 0
+  count = var.create_idp_trusted_roles ? 1 : 0
 
-  name               = "${var.org_name}-${var.account_name}-read-only"
+  name = "${var.org_name}-${var.account_name}-read-only"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -16,11 +16,11 @@ resource "aws_iam_role" "read_only" {
     ["arn:aws:iam::${var.idp_account_id}:root"],
     formatlist(
       "arn:aws:iam::%s:role/${var.org_name}-read-only",
-      var.idp_admin_trust_account_ids,
+      var.idp_external_trust_account_ids,
     ),
     formatlist(
       "arn:aws:iam::%s:role/client-read-only",
-      var.idp_admin_trust_account_ids,
+      var.idp_external_trust_account_ids,
     ),
   ),
 )}
@@ -35,7 +35,7 @@ max_session_duration = var.role_max_session_duration
 }
 
 resource "aws_iam_policy_attachment" "read_only" {
-  count = var.idp_account_id != "" ? 1 : 0
+  count = var.create_idp_trusted_roles ? 1 : 0
 
   name       = "idp-read-only-attachment"
   roles      = [aws_iam_role.read_only[0].name]
