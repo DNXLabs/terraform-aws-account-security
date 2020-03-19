@@ -34,10 +34,9 @@ EOF
 max_session_duration = var.role_max_session_duration
 }
 
-resource "aws_iam_policy_attachment" "read_only" {
+resource "aws_iam_role_policy_attachment" "read_only" {
   count = var.create_idp_trusted_roles ? 1 : 0
 
-  name       = "idp-read-only-attachment"
-  roles      = [aws_iam_role.read_only[0].name]
+  role       = aws_iam_role.read_only[0].name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
