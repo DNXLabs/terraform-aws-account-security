@@ -55,7 +55,16 @@ variable "ci_account_id" {
 }
 
 variable "extra_roles" {
-  type        = map(string)
+  default     = []
+  description = "A list of extra roles to create in this account"
+}
+
+variable "extra_roles_policy_arn" {
   default     = {}
-  description = "A map of <role_name> = <json policy> to create extra roles in this account"
+  description = "A map of { <role_name> = <policy arn> } to attach policies to extra roles in this account (role must be declared at extra_roles first)"
+}
+
+variable "extra_roles_policy" {
+  default     = {}
+  description = "A map of { <role_name> = <json policy> } to create policies to extra roles in this account (role must be declared at extra_roles first)"
 }
