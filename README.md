@@ -30,31 +30,17 @@ You will need an AWS Organization created in the _master_ account and an IdP acc
 Use `idp_admin_trust_account_ids` and `idp_admin_trust_names` to allow access from external accounts. Enter a list of IDs of IDP accounts that will be able to assume to this account.
 
 See:
-* Create an organization with [terraform-aws-organization](https://github.com/DNXLabs/terraform-aws-organization) 
+* Create an organization with [terraform-aws-organization](https://github.com/DNXLabs/terraform-aws-organization)
 * Create accounts with [terraform-aws-account](https://github.com/DNXLabs/terraform-aws-account)
 * Deploy IdP IAM roles (for gsuite) with [terraform-aws-idp-gsuite](https://github.com/DNXLabs/terraform-aws-idp-gsuite)
 
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| account\_name | Account name (slug) | string | n/a | yes |
-| idp\_account\_id | Account ID of IDP account | string | `""` | no |
-| idp\_trusts | List of role ARNs to trust as external IDPs | list | `<list>` | no |
-| org\_name | Name for this organization (slug) | string | n/a | yes |
-| role\_max\_session\_duration | Maximum CLI/API session duration | string | `"43200"` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| iam\_role\_admin\_arn | ARN for admin IAM role |
-| iam\_role\_read\_only\_arn | ARN for read-only IAM role |
+<!--- BEGIN_TF_DOCS --->
+<!--- END_TF_DOCS --->
 
 ## Authors
 
-Module managed by [Allan Denot](https://github.com/adenot).
+Module managed by [DNX Solutions](https://github.com/DNXLabs).
 
 ## License
 
-Apache 2 Licensed. See LICENSE for full details.
+Apache 2 Licensed. See [LICENSE](https://github.com/DNXLabs/terraform-aws-account-security/blob/master/LICENSE) for full details.
