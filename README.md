@@ -35,6 +35,44 @@ See:
 * Deploy IdP IAM roles (for gsuite) with [terraform-aws-idp-gsuite](https://github.com/DNXLabs/terraform-aws-idp-gsuite)
 
 <!--- BEGIN_TF_DOCS --->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12.20 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| account\_name | Account name (slug) | `any` | n/a | yes |
+| ci\_account\_id | Account ID of MGMT account for use with IAM CI role. Required when create\_ci\_iam\_role=true | `string` | `""` | no |
+| create\_ci\_profile | Create IAM instance profile and user for use with CI workers deployed to the account | `bool` | `false` | no |
+| create\_ci\_role | Create IAM role to assume from MGMT account for CI deployments | `bool` | `true` | no |
+| create\_idp\_trusted\_roles | Create admin and read-only roles trusting IDP account | `bool` | `true` | no |
+| extra\_roles | A list of extra roles to create in this account | `list` | `[]` | no |
+| extra\_roles\_policy | A map of { <role\_name> = <json policy> } to create policies to extra roles in this account (role must be declared at extra\_roles first) | `map` | `{}` | no |
+| extra\_roles\_policy\_arn | A map of { <role\_name> = <policy arn> } to attach policies to extra roles in this account (role must be declared at extra\_roles first) | `map` | `{}` | no |
+| idp\_account\_id | Account ID of IDP account (needs to be set when is\_idp\_account=true) | `string` | `""` | no |
+| idp\_external\_trust\_account\_ids | List of account IDs to trust as external IDPs | `list(string)` | `[]` | no |
+| org\_name | Name for this organization (slug) | `any` | n/a | yes |
+| role\_max\_session\_duration | Maximum CLI/API session duration | `string` | `"43200"` | no |
+| ssm\_account\_ids | List of account IDs to save in SSM | `list(string)` | `[]` | no |
+| ssm\_account\_names | List of account names (slugs) to save in SSM, must match ssm\_account\_ids | `list(string)` | `[]` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| iam\_role\_admin\_arn | ARN for admin IAM role |
+| iam\_role\_read\_only\_arn | ARN for read-only IAM role |
+
 <!--- END_TF_DOCS --->
 
 ## Authors
