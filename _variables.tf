@@ -18,8 +18,13 @@ variable "idp_account_id" {
 
 variable "idp_external_trust_account_ids" {
   type        = list(string)
-  description = "List of account IDs to trust as external IDPs"
+  description = "List of account IDs to trust as external IDPs (leave empty to disable external access)"
   default     = []
+}
+
+variable "idp_external_trust_client_role" {
+  description = "Creates a client-admin/client-read-only role for external IDPs"
+  default     = true
 }
 
 variable "role_max_session_duration" {

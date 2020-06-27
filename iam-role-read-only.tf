@@ -18,10 +18,11 @@ resource "aws_iam_role" "read_only" {
       "arn:aws:iam::%s:role/${var.org_name}-read-only",
       var.idp_external_trust_account_ids,
     ),
+    var.idp_external_trust_client_role ?
     formatlist(
       "arn:aws:iam::%s:role/client-read-only",
       var.idp_external_trust_account_ids,
-    ),
+    ) : [],
   ),
 )}
       },

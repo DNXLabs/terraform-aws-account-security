@@ -18,10 +18,11 @@ resource "aws_iam_role" "admin" {
       "arn:aws:iam::%s:role/${var.org_name}-admin",
       var.idp_external_trust_account_ids,
     ),
+    var.idp_external_trust_client_role ?
     formatlist(
       "arn:aws:iam::%s:role/client-admin",
-      var.idp_external_trust_account_ids,
-    ),
+      var.idp_external_trust_account_ids
+    ) : [],
   ),
 )}
       },
