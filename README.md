@@ -5,9 +5,31 @@
 
 This terraform module creates IAM roles for federated users to assume from an IdP account.
 
-It creates 2 roles:
-* `idp-admin` with full admin permissions
-* `idp-read-only` with read-only permissions
+Deploy this module to every AWS account, except _IdP_ and _master_.
+
+You will need an AWS Organization created in the _master_ account and an IdP account with federated login.
+
+Use `idp_admin_trust_account_ids` and `idp_admin_trust_names` to allow access from external accounts. Enter a list of IDs of IDP accounts that will be able to assume to this account.
+
+See:
+
+* Create an organization with [terraform-aws-organization](https://github.com/DNXLabs/terraform-aws-organization)
+* Create accounts with [terraform-aws-account](https://github.com/DNXLabs/terraform-aws-account)
+* Deploy IdP IAM roles (for gsuite) with [terraform-aws-idp-gsuite](https://github.com/DNXLabs/terraform-aws-idp-gsuite)
+
+This modules creates the following resources:
+
+ - Identity and Access Management2 roles:
+   - `idp-admin` with full admin permissions
+   - `idp-read-only` with read-only permissions
+
+In addition you have the option to:
+
+ - Creates a client-admin/client-read-only role for external IDPs
+ - Create admin and read-only roles trusting IDP account
+ - Create IAM role to assume from management account for CI deployments
+ - Create IAM instance profile and user for use with CI workers deployed to the account
+ - Set Maximum CLI/API session duration. The default value is 43200
 
 ## Usage
 
@@ -22,17 +44,6 @@ module "my_account_roles" {
   idp_admin_trust_names       = ["dnx"]                        # optional
 }
 ```
-
-Deploy this module to every AWS account, except _IdP_ and _master_.
-
-You will need an AWS Organization created in the _master_ account and an IdP account with federated login.
-
-Use `idp_admin_trust_account_ids` and `idp_admin_trust_names` to allow access from external accounts. Enter a list of IDs of IDP accounts that will be able to assume to this account.
-
-See:
-* Create an organization with [terraform-aws-organization](https://github.com/DNXLabs/terraform-aws-organization)
-* Create accounts with [terraform-aws-account](https://github.com/DNXLabs/terraform-aws-account)
-* Deploy IdP IAM roles (for gsuite) with [terraform-aws-idp-gsuite](https://github.com/DNXLabs/terraform-aws-idp-gsuite)
 
 <!--- BEGIN_TF_DOCS --->
 
